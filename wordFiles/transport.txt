@@ -1,0 +1,8 @@
+car
+bus
+plane
+boat
+train
+bicycle
+skateboard
+helicopter

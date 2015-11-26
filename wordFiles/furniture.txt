@@ -1,0 +1,6 @@
+chair
+table
+bed
+shelf
+desk
+sofa

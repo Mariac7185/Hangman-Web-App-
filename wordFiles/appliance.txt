@@ -1,0 +1,11 @@
+computer
+television
+toaster
+refrigerator
+phone
+microwave
+oven
+radio
+clock
+lamp
+stereo
