@@ -13,34 +13,63 @@
 
 <body>
 
-<script>
+<script >
 	var imageArray = ['./hangmanImages/Image1.gif','./hangmanImages/Image2.gif','./hangmanImages/Image3.gif','./hangmanImages/Image4.gif','./hangmanImages/Image5.gif','./hangmanImages/Image6.gif','./hangmanImages/Image7.gif','./hangmanImages/Image8.gif'];
-
-	// for(var i=0; i <imageArray.length; i++){
-	// 	document.write(i +"<br>");
-		//document.write("<img src=\""+ imageArray[i] + "\" alt=\"hangmanImage\"/><br>");
-	// }
 
 	var index = 0;
 	document.write("<img src=\"" + imageArray[index] + "\" alt=\"hangmanImage\"/>");
+
+	var word = function(){
+		var numWords;
+		var wordIndex;
+		var category;
+		
+		this.getSelectedCategory = function(){
+			var e = document.getElementById("menu");
+			this.category=e.options[e.selectedIndex].value;
+		}
+
+		this.setNumCategories = function(num){
+			this.numCategories = num;
+		}
+
+		this.setWordIndex = function(){
+			this.categoryIndex = Math.floor((Math.random() * this.numCategories) );
+		}
+
+		this.getNumWords =function(){
+
+		}
+
+		//This function will read the contents of the file 
+		this.readFile = function(fileName){
+
+		}
+}
+
+var word1 = new word();
+
+word1.setNumCategories(5);
+word1.setCategoryIndex();
+document.write(word1.categoryIndex);
 </script>
 <br>
 <input id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input"></input>
 
-<select>
-	<option>Select Category</option>
-	<option>U.S. State</option>
-	<option>Country</option>
-	<option>Animal</option>
-	<option>Occupation/Job</option>
-	<option>Household Appliance</option>
-	<option>Furniture</option>
-	<option>Transportation</option>
-	<option>Musical Instrument</option>
-	<option>MLB Teams</option>
-	<option>NBA Teams</option>
-	<option>NHL Teams</option>
-	<option>NFL Teams</option>
+<select id="menu">
+	<option value="select">Select Category</option>
+	<option value="state">U.S. State</option>
+	<option value="country">Country</option>
+	<option value="animal">Animal</option>
+	<option value="occupation">Occupation/Job</option>
+	<option value="appliance">Household Appliance</option>
+	<option value="furniture">Furniture</option>
+	<option value="transportation">Transportation</option>
+	<option value="instrument">Musical Instrument</option>
+	<option value="mlb">MLB Teams</option>
+	<option value="nba">NBA Teams</option>
+	<option value="nhl">NHL Teams</option>
+	<option value="nfl">NFL Teams</option>
 </select>
 
 
