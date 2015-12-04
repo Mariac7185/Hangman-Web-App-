@@ -13,11 +13,23 @@
 
 <body>
 
-<script >
+<script type="text/javascript">
+	
+	window.onload=function(){
+		// var e = document.getElementById("menu");
+		// var category = e.options[e.selectedIndex].text;
+
+		// alert(category);
+
+	}
+
+
 	var imageArray = ['./hangmanImages/Image1.gif','./hangmanImages/Image2.gif','./hangmanImages/Image3.gif','./hangmanImages/Image4.gif','./hangmanImages/Image5.gif','./hangmanImages/Image6.gif','./hangmanImages/Image7.gif','./hangmanImages/Image8.gif'];
 
 	var index = 0;
+
 	document.write("<img src=\"" + imageArray[index] + "\" alt=\"hangmanImage\"/>");
+
 
 	var word = function(){
 		var numWords;
@@ -34,7 +46,7 @@
 		}
 
 		this.setWordIndex = function(){
-			this.categoryIndex = Math.floor((Math.random() * this.numCategories) );
+			this.wordIndex = Math.floor((Math.random() * this.numCategories) );
 		}
 
 		this.getNumWords =function(){
@@ -45,31 +57,60 @@
 		this.readFile = function(fileName){
 
 		}
-}
+	}
 
-var word1 = new word();
+	var word1 = new word();
 
-word1.setNumCategories(5);
-word1.setCategoryIndex();
-document.write(word1.categoryIndex);
+	word1.setNumCategories(5);
+	
+	// document.write(word1.categoryIndex);
+
+	function getCategory(category){
+		loadFile(category);
+		// alert(category);
+	}
+
+	function loadFile(category){
+		var file = "file:///C:/Users/Avi/Desktop/Dropbox/HANGMAN (WEB)/".concat(category).concat(".txt");
+		alert(file);
+		var rawFile =  new XMLHttpRequest();
+		rawFile.open("GET", category.concat(".txt"),false);
+		rawFile.onreadystatechange = function (){
+			if(rawFile.readyState === 4){							//document is ready to parse 																  
+				if(rawFile.status === 200 || rawFile.status ===0){    //file is found 
+					var allText = rawFile.responseText;
+					var lines  = rawFile.responseText.split("\n");
+					alert(lines);
+				}
+			}
+		}
+		rawFile.send(null);
+
+	}
+
+	
+
+	
+
 </script>
 <br>
 <input id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input"></input>
 
-<select id="menu">
+<select id="menu" onchange="getCategory(this.value);">
 	<option value="select">Select Category</option>
-	<option value="state">U.S. State</option>
-	<option value="country">Country</option>
+	<option value="states">U.S. State</option>
+	<option value="countries">Country</option>
 	<option value="animal">Animal</option>
 	<option value="occupation">Occupation/Job</option>
 	<option value="appliance">Household Appliance</option>
 	<option value="furniture">Furniture</option>
-	<option value="transportation">Transportation</option>
-	<option value="instrument">Musical Instrument</option>
-	<option value="mlb">MLB Teams</option>
-	<option value="nba">NBA Teams</option>
-	<option value="nhl">NHL Teams</option>
-	<option value="nfl">NFL Teams</option>
+	<option value="fruit">Fruit</option>
+	<option value="transport">Transportation</option>
+	<option value="music">Musical Instrument</option>
+	<option value="mlbTeams">MLB Teams</option>
+	<option value="nbaTeams">NBA Teams</option>
+	<option value="nhlTeams">NHL Teams</option>
+	<option value="nflTeams">NFL Teams</option>
 </select>
 
 
