@@ -6,118 +6,14 @@
 	<meta charset="utf-8">
 	<title>Play Hangman</title>
 	<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
-
-
 </head>
 
 
 <body>
 
-<script type="text/javascript">
-	
-	window.onload=function(){
-		// var e = document.getElementById("menu");
-		// var category = e.options[e.selectedIndex].text;
+<img id="pic" src="./hangmanImages/Image1.gif" alt = "current game state"/>
 
-		// alert(category);
-
-	}
-
-
-	var imageArray = ['./hangmanImages/Image1.gif','./hangmanImages/Image2.gif','./hangmanImages/Image3.gif','./hangmanImages/Image4.gif','./hangmanImages/Image5.gif','./hangmanImages/Image6.gif','./hangmanImages/Image7.gif','./hangmanImages/Image8.gif'];
-
-	var index = 0;
-
-	var wordArray;
-
-	document.write("<img src=\"" + imageArray[index] + "\" alt=\"hangmanImage\"/>");
-
-
-	var word = function(){
-		var numWords;
-		var wordIndex;
-		var category;
-		
-		this.getSelectedCategory = function(){
-			var e = document.getElementById("menu");
-			this.category=e.options[e.selectedIndex].value;
-		}
-
-		this.setNumCategories = function(num){
-			this.numCategories = num;
-		}
-
-		this.setWordIndex = function(){
-			this.wordIndex = Math.floor((Math.random() * this.numCategories) );
-		}
-
-		this.getNumWords =function(){
-
-		}
-
-		//This function will read the contents of the file 
-		this.readFile = function(fileName){
-
-		}
-	}
-
-	var word1 = new word();
-
-	word1.setNumCategories(5);
-	
-	// document.write(word1.categoryIndex);
-
-	function getCategory(category){
-		loadFile(category);
-		// alert(category);
-	}
-
-    /*This function loads the file of the category selected, line by line.
-      It calls the makeArray function which the converts the javascript object (text from the file) into a string
-    */
-	function loadFile(category){
-		var file = "file:///C:/Users/Avi/Desktop/Dropbox/HANGMAN (WEB)/".concat(category).concat(".txt");
-		var lines;
-		alert(file);
-		var rawFile =  new XMLHttpRequest();
-		rawFile.open("GET", category.concat(".txt"),false);
-		rawFile.onreadystatechange = function (){
-			if(rawFile.readyState === 4){							//document is ready to parse 																  
-				if(rawFile.status === 200 || rawFile.status ===0){    //file is found 
-					var allText = rawFile.responseText;
-					var lines  = rawFile.responseText.split("\n");    //Reading the file line by line. Adding a comma after each line
-					makeArray(lines);
-					//alert(lines);
-				}
-			}
-		}
-		rawFile.send(null);
-
-	}
-
-	/*This function receives the data read in from the file as an object
-	  It then converts that object to a string
-	  It then splits the string (after each comma) and places it into an array
-	 */
-	function makeArray(fileData){
-		var str = String(fileData)	
-		wordArray= str.split(",");
-		alert(wordArray[0]);
-	}
-
-	function getWord(){
-		var categorySize = wordArray.length;
-		var word = wordArray[Math.floor((Math.random() * categorySize))];
-
-		alert(word);
-
-	}
-
-	
-
-</script>
 <br>
-<input id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input"></input>
 
 <select id="menu" onchange="getCategory(this.value);">
 	<option value="select">Select Category</option>
@@ -135,6 +31,118 @@
 	<option value="nhlTeams">NHL Teams</option>
 	<option value="nflTeams">NFL Teams</option>
 </select>
+
+<br><br>
+
+<input id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input"></input>
+
+
+<div id="wordlines">
+
+</div>
+
+<script type="text/javascript">
+	
+	window.onload=function(){
+		 //document.getElementById("userInput").onchange=setAutoFocus();
+		// var category = e.options[e.selectedIndex].text;
+
+		// alert(category);
+	//setAutoFocus()
+	}
+
+
+	var imageArray = ['./hangmanImages/Image1.gif','./hangmanImages/Image2.gif','./hangmanImages/Image3.gif','./hangmanImages/Image4.gif','./hangmanImages/Image5.gif','./hangmanImages/Image6.gif','./hangmanImages/Image7.gif','./hangmanImages/Image8.gif'];
+
+	var index = 0;
+
+	var wordArray;
+	var word;
+
+//	document.write("<img src=\"" + imageArray[index] + "\" alt=\"hangmanImage\"/>");
+
+
+	
+	
+	// document.write(word1.categoryIndex);
+	//Calls autofocus after each menu change
+	function getCategory(category){
+		loadFile(category);
+		setAutoFocus()
+		// alert(category);
+	}
+
+    /*This function loads the file of the category selected, line by line.
+      It calls the makeArray function which the converts the javascript object (text from the file) into a string
+    */
+	function loadFile(category){
+		var file = "file:///C:/Users/Avi/Desktop/Dropbox/HANGMAN (WEB)/".concat(category).concat(".txt");
+		var lines;
+		//alert(file);
+		var rawFile =  new XMLHttpRequest();
+		rawFile.open("GET", category.concat(".txt"),false);
+		rawFile.onreadystatechange = function (){
+			if(rawFile.readyState === 4){							//document is ready to parse 																  
+				if(rawFile.status === 200 || rawFile.status ===0){    //file is found 
+					var allText = rawFile.responseText;
+					var lines  = rawFile.responseText.split("\n");    //Reading the file line by line. Adding a comma after each line
+					makeArray(lines);				
+				}
+			}
+		}
+		rawFile.send(null);
+
+	}
+
+	/*This function receives the data read in from the file as an object
+	  It then converts that object to a string
+	  It then splits the string (after each comma) and places it into an array
+	 */
+	function makeArray(fileData){
+		var str = String(fileData)	
+		wordArray= str.split(",");
+		getWord();
+		printBlankSpaces();
+	}
+
+	/*getWord() determines the size of the category based on the length of the array of words which were read in.
+	  It then selects a random number from 0 to that number. This number is then used as the index of the array to 
+	  determine the word to be selected.
+	 */
+	function getWord(){
+		var categorySize = wordArray.length;
+		word = wordArray[Math.floor((Math.random() * categorySize))];
+		//alert(word);
+	}
+
+	/*printBlankSpaces finds the length of the word selected and outputs that blank '_' black lines 
+	  to the screen. 
+	 */
+	function printBlankSpaces(){
+
+		var wordLength = word.length;
+		var blankLines="";
+		var div ="";
+
+		for(var x = 0; x < wordLength; x++){
+			blankLines += "   _   ";
+		}
+
+		div = document.getElementById("wordlines");
+		div.innerHTML = blankLines;
+
+	}
+
+	/*This function sets the focus of the textbox*/
+	function setAutoFocus(){
+		document.getElementById("userInput").focus();
+	}
+
+
+
+</script>
+
+
 
 
 </body>
