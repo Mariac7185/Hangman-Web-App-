@@ -28,6 +28,8 @@
 
 	var index = 0;
 
+	var wordArray;
+
 	document.write("<img src=\"" + imageArray[index] + "\" alt=\"hangmanImage\"/>");
 
 
@@ -72,6 +74,7 @@
 
 	function loadFile(category){
 		var file = "file:///C:/Users/Avi/Desktop/Dropbox/HANGMAN (WEB)/".concat(category).concat(".txt");
+		var lines;
 		alert(file);
 		var rawFile =  new XMLHttpRequest();
 		rawFile.open("GET", category.concat(".txt"),false);
@@ -80,7 +83,8 @@
 				if(rawFile.status === 200 || rawFile.status ===0){    //file is found 
 					var allText = rawFile.responseText;
 					var lines  = rawFile.responseText.split("\n");
-					alert(lines);
+					makeArray(lines);
+					//alert(lines);
 				}
 			}
 		}
@@ -88,7 +92,18 @@
 
 	}
 
-	
+	function makeArray(fileData){
+		var str = fileData;
+		wordArray= str.split(",");
+	}
+
+	function getWord(){
+		var categorySize = wordArray.length;
+		var word = wordArray[Math.floor((Math.random() * categorySize))];
+
+		alert(word);
+
+	}
 
 	
 
