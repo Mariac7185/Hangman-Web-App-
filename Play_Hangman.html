@@ -34,12 +34,17 @@
 
 <br><br>
 
-<input id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input"></input>
-
-
 <div id="wordlines">
 
 </div>
+
+<br><br>
+
+<input id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input" ></input>
+<br><br>
+
+<button onclick="handleInput();">Enter</button>
+
 
 <script type="text/javascript">
 	
@@ -57,6 +62,7 @@
 	var index = 0;
 
 	var wordArray;
+	var guessArray; //This holds the blank spaces and the correct guesses
 	var word;
 
 //	document.write("<img src=\"" + imageArray[index] + "\" alt=\"hangmanImage\"/>");
@@ -76,21 +82,26 @@
       It calls the makeArray function which the converts the javascript object (text from the file) into a string
     */
 	function loadFile(category){
-		var file = "file:///C:/Users/Avi/Desktop/Dropbox/HANGMAN (WEB)/".concat(category).concat(".txt");
-		var lines;
-		//alert(file);
-		var rawFile =  new XMLHttpRequest();
-		rawFile.open("GET", category.concat(".txt"),false);
-		rawFile.onreadystatechange = function (){
-			if(rawFile.readyState === 4){							//document is ready to parse 																  
-				if(rawFile.status === 200 || rawFile.status ===0){    //file is found 
-					var allText = rawFile.responseText;
-					var lines  = rawFile.responseText.split("\n");    //Reading the file line by line. Adding a comma after each line
-					makeArray(lines);				
+		if(category!=='select'){
+			var file = "file:///C:/Users/Avi/Desktop/Dropbox/HANGMAN (WEB)/".concat(category).concat(".txt");
+			var lines;
+			//alert(file);
+			var rawFile =  new XMLHttpRequest();
+			rawFile.open("GET", category.concat(".txt"),false);
+			rawFile.onreadystatechange = function (){
+				if(rawFile.readyState === 4){							//document is ready to parse 																  
+					if(rawFile.status === 200 || rawFile.status ===0){    //file is found 
+						var allText = rawFile.responseText;
+						var lines  = rawFile.responseText.split("\n");    //Reading the file line by line. Adding a comma after each line
+						makeArray(lines);				
+					}
 				}
 			}
+			rawFile.send(null);
 		}
-		rawFile.send(null);
+		else{
+			clearLines();
+		}
 
 	}
 
@@ -119,24 +130,52 @@
 	  to the screen. 
 	 */
 	function printBlankSpaces(){
-
 		var wordLength = word.length;
 		var blankLines="";
 		var div ="";
-
 		for(var x = 0; x < wordLength; x++){
 			blankLines += "   _   ";
 		}
-
 		div = document.getElementById("wordlines");
 		div.innerHTML = blankLines;
-
 	}
 
-	/*This function sets the focus of the textbox*/
+	/*This function sets the focus of the textbox
+	*/
 	function setAutoFocus(){
 		document.getElementById("userInput").focus();
 	}
+
+	/*ClearLines removes the blank lines which were printed 'printBlankSpaces'
+	*/
+	function clearLines(){
+		div = document.getElementById("wordlines");
+		div.innerHTML = "";
+	}
+
+	/*handleInput collects information entered from the form and checks if it is in the word.
+	  If the letter is on the word, this function calls the changeWordLines function
+	  Otherwise, it calls the "displayWrongInput" function
+	 */
+
+	 function handleInput(){
+	 	var guess= document.getElementsByTagName("input")[0].value;
+	 	alert(guess + " " + word);
+
+	 	var indexOfGuess = word.search(guess);
+
+	 	if(indexOfGuess != -1){
+	 		alert("hit");
+	 	}
+	 	else{
+	 		alert("miss");
+	 	}
+	 } 
+
+	 /*This function creates a new string with the blanks and correct guess*/
+	 function changeWordLines(guess, index){
+
+	 }
 
 
 
