@@ -62,8 +62,10 @@
 	var index = 0;
 
 	var wordArray;
-	var guessArray; //This holds the blank spaces and the correct guesses
+	var guessArray = []; //This holds the blank spaces and the correct guesses
+	var imageArrayIndex = 0;
 	var word;
+
 
 //	document.write("<img src=\"" + imageArray[index] + "\" alt=\"hangmanImage\"/>");
 
@@ -127,14 +129,16 @@
 	}
 
 	/*printBlankSpaces finds the length of the word selected and outputs that blank '_' black lines 
-	  to the screen. 
+	  to the screen It also pushes the correct number of dashes to guessArray. 
 	 */
 	function printBlankSpaces(){
+		guessArray = []					//making the guessArray empty after each new word is selected
 		var wordLength = word.length;
 		var blankLines="";
 		var div ="";
-		for(var x = 0; x < wordLength; x++){
+		for(var x = 0; x < wordLength -1; x++){
 			blankLines += "   _   ";
+			guessArray.push("   _   ");
 		}
 		div = document.getElementById("wordlines");
 		div.innerHTML = blankLines;
@@ -166,18 +170,46 @@
 
 	 	if(indexOfGuess != -1){
 	 		alert("hit");
+	 		changeGuessArray(guess,indexOfGuess);
+	 		updateBlankLines();
 	 	}
 	 	else{
-	 		alert("miss");
+	 		changeImage();
 	 	}
 	 } 
 
-	 /*This function creates a new string with the blanks and correct guess*/
-	 function changeWordLines(guess, index){
+	 /*This function creates a new string with the blanks and correct guess
+	 */
+	 function changeGuessArray(guess, index){
+	 	guessArray[index] = "   " + guess + "   ";
+	 }
 
+	 /*This function updates the blank lines
+	 */
+	 function updateBlankLines(){
+	 	var newString="";
+	 	alert(guessArray);
+
+	 	for(var x =0; x < guessArray.length; x++){
+	 		newString += guessArray[x];
+	 		//alert(guessArray[x]);
+	 	//	console.log(newString);
+	 	}	
+
+	 	//alert(newString);
+
+	 	div = document.getElementById("wordlines");
+		div.innerHTML = newString;
+	 }
+
+	 function changeImage(){
+	 	imageArrayIndex++;
+	 	document.getElementById("pic").src=imageArray[imageArrayIndex];
 	 }
 
 
+
+ 
 
 </script>
 
