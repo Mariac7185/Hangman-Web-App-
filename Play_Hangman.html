@@ -45,6 +45,10 @@
 
 <button onclick="handleInput();">Enter</button>
 
+<div id="misses">
+
+</div>
+
 
 <script type="text/javascript">
 	
@@ -64,7 +68,8 @@
 	var wordArray;
 	var guessArray = []; //This holds the blank spaces and the correct guesses
 	var indexesOfGuess = [];
-	var misses = [];
+	var missesArray = [];
+	var missCount = 0;
 
 	var imageArrayIndex = 0;
 	var word;
@@ -80,6 +85,7 @@
 	function getCategory(category){
 		loadFile(category);
 		setAutoFocus()
+		clearMisses();
 		// alert(category);
 	}
 
@@ -157,6 +163,11 @@
 	*/
 	function clearLines(){
 		div = document.getElementById("wordlines");
+		div.innerHTML = "";	
+	}
+
+	function clearMisses(){
+		div = document.getElementById("misses");
 		div.innerHTML = "";
 	}
 
@@ -171,9 +182,6 @@
 
 	 	//indexOfGuess checks if the guess is in the word
 	 	var indexOfGuess = word.search(guess);
-
-	 	
-
 
 	 	//If the guess is in the word, the for loop pushes all of its positions into the indexesOfGuess Array
 	 	if(indexOfGuess != -1){
@@ -197,8 +205,11 @@
 	 		updateBlankLines();
 	 	}
 	 	else{
-	 		misses.push(guess);
-	 		if(misses.length == word.length -1){
+	 		guess += " ";
+	 		missesArray.push(guess);
+	 		//changeMissesArray(guess);
+	 		printMissesArray(guess);
+	 		if(missesArray.length == word.length -1){
  				alert("you lose");
  				console.log(indexesOfGuess.length + " " + word.length);
  				getLosingImage();
@@ -213,6 +224,27 @@
 	 */
 	 function changeGuessArray(guess, index){
 	 	guessArray[index] = "   " + guess + "   ";
+	 }
+
+	 function changeMissesArray(guess){
+	 	missesArray[missCount] = guess + "  ";
+	 	missCount++;
+
+	 }
+
+	 function printMissesArray(miss){
+	 	var misses ="";
+
+	 	alert(missesArray.length);
+
+	 	var div ="";
+		for(var x = 0; x <= missesArray.length -1; x++){
+			misses+= missesArray[x];	
+			alert(misses);		
+		}
+		div = document.getElementById("misses");
+		div.innerHTML = misses;
+
 	 }
 
 	 /*This function updates the blank lines
