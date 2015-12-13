@@ -198,7 +198,13 @@
 	 	}
 	 	else{
 	 		misses.push(guess);
- 		
+	 		if(misses.length == word.length -1){
+ 				alert("you lose");
+ 				console.log(indexesOfGuess.length + " " + word.length);
+ 				getLosingImage();
+ 			}
+
+
 	 		changeImage();
 	 	}
 	 } 
