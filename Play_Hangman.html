@@ -34,6 +34,10 @@
 
 <br><br>
 
+<div id = "statusMessage">
+</div>
+
+
 <div id="wordlines">
 
 </div>
@@ -85,7 +89,8 @@
 	function getCategory(category){
 		loadFile(category);
 		setAutoFocus()
-		clearMisses();
+		clearDiv("misses");
+		clearDiv("statusMessage");
 		// alert(category);
 	}
 
@@ -111,7 +116,8 @@
 			rawFile.send(null);
 		}
 		else{
-			clearLines();
+			clearDiv("wordlines");
+			clearDiv("statusMessage");
 		}
 
 	}
@@ -161,15 +167,15 @@
 
 	/*ClearLines removes the blank lines which were printed 'printBlankSpaces'
 	*/
-	function clearLines(){
-		div = document.getElementById("wordlines");
+	function clearDiv(id){
+		div = document.getElementById(id);
 		div.innerHTML = "";	
 	}
 
-	function clearMisses(){
-		div = document.getElementById("misses");
-		div.innerHTML = "";
-	}
+	// function clearMisses(){
+	// 	div = document.getElementById("misses");
+	// 	div.innerHTML = "";
+	//}
 
 	/*handleInput collects information entered from the form and checks if it is in the word.
 	  If the letter is on the word, this function calls the changeWordLines function
@@ -197,7 +203,9 @@
 	 		if(indexesOfGuess.length == word.length -1){
  				alert("you win");
  				console.log(indexesOfGuess.length + " " + word.length);
+ 				youWin();
  				getWinningImage();
+ 				clearDiv("wordlines");
  			}
 	 		//alert("hit");
 	 		alert(word.length);
@@ -212,7 +220,9 @@
 	 		if(missesArray.length == word.length -1){
  				alert("you lose");
  				console.log(indexesOfGuess.length + " " + word.length);
+ 				youLose();
  				getLosingImage();
+
  			}
 
 
@@ -282,7 +292,39 @@
 	 	document.getElementById("pic").src=imageArray[6];
 	 }
 
+	 function duplicateEntry(){
+	 	var message = "You entered that letter already!"
+	 	var div = "";
 
+	 	div = document.getElementById("statusMessage");
+	 	div.innerHTML = message;
+
+	 }
+
+	 function invalidEntry(){
+	 	var message = "Invaid Entry! Only LETTERS are allowed";
+	 	var div = "";
+
+	 	div = document.getElementById("statusMessage");
+	 	div.innerHTML = message;
+	 }
+
+
+	 function youLose(){
+	 	var message = "You lost! The word was " + word + "<br> To play again, select another category!";
+	 	var div = "";
+
+	 	div = document.getElementById("statusMessage");
+	 	div.innerHTML = message;
+	 }
+
+	 function youWin(){
+	 	var message = "Congrats! You won! To play again, select another category!";
+	 	var div = "";
+
+	 	div = document.getElementById("statusMessage");
+	 	div.innerHTML = message;
+	 }
 
 
  
