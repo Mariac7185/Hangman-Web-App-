@@ -63,6 +63,9 @@
 
 	var wordArray;
 	var guessArray = []; //This holds the blank spaces and the correct guesses
+	var indexesOfGuess = [];
+	var misses = [];
+
 	var imageArrayIndex = 0;
 	var word;
 
@@ -169,22 +172,33 @@
 	 	//indexOfGuess checks if the guess is in the word
 	 	var indexOfGuess = word.search(guess);
 
-	 	var indexesOfGuess = [];
+	 	
 
 
 	 	//If the guess is in the word, the for loop pushes all of its positions into the indexesOfGuess Array
 	 	if(indexOfGuess != -1){
 	 		for(var x =0; x < word.length; x++){
 		 		if(guess == word.charAt(x)){
-		 			// indexesOfGuess.push(word.charAt(x));
+		 			indexesOfGuess.push(word.charAt(x));
 		 			changeGuessArray(guess, x);
 	 			}	
 	 		}
-	 		alert("hit");
-	 		//changeGuessArray(guess,indexesOfGuess);
+
+	 		// alert(indexesOfGuess.length + " " + word.length);
+
+	 		if(indexesOfGuess.length == word.length -1){
+ 				alert("you win");
+ 				console.log(indexesOfGuess.length + " " + word.length);
+ 				getWinningImage();
+ 			}
+	 		//alert("hit");
+	 		alert(word.length);
+	 		changeGuessArray(guess,indexesOfGuess);
 	 		updateBlankLines();
 	 	}
 	 	else{
+	 		misses.push(guess);
+ 		
 	 		changeImage();
 	 	}
 	 } 
@@ -199,7 +213,7 @@
 	 */
 	 function updateBlankLines(){
 	 	var newString="";
-	 	alert(guessArray);
+	 	//alert(guessArray);
 
 	 	for(var x =0; x < guessArray.length; x++){
 	 		newString += guessArray[x];
@@ -213,10 +227,23 @@
 		div.innerHTML = newString;
 	 }
 
+	 /*This function changes the picture for every wrong guess
+	 */
 	 function changeImage(){
 	 	imageArrayIndex++;
 	 	document.getElementById("pic").src=imageArray[imageArrayIndex];
 	 }
+
+	 /*This function switches the image to the winning image 
+	 */
+	 function getWinningImage(){
+	 	document.getElementById("pic").src=imageArray[7];
+	 }
+
+	 function getLosingImage(){
+	 	document.getElementById("pic").src=imageArray[6];
+	 }
+
 
 
 
