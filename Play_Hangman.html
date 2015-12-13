@@ -159,18 +159,29 @@
 
 	/*handleInput collects information entered from the form and checks if it is in the word.
 	  If the letter is on the word, this function calls the changeWordLines function
-	  Otherwise, it calls the "displayWrongInput" function
+	  Otherwise, it calls the "displayWrongInput" function. 
 	 */
 
 	 function handleInput(){
 	 	var guess= document.getElementsByTagName("input")[0].value;
 	 	alert(guess + " " + word);
 
+	 	//indexOfGuess checks if the guess is in the word
 	 	var indexOfGuess = word.search(guess);
 
+	 	var indexesOfGuess = [];
+
+
+	 	//If the guess is in the word, the for loop pushes all of its positions into the indexesOfGuess Array
 	 	if(indexOfGuess != -1){
+	 		for(var x =0; x < word.length; x++){
+		 		if(guess == word.charAt(x)){
+		 			// indexesOfGuess.push(word.charAt(x));
+		 			changeGuessArray(guess, x);
+	 			}	
+	 		}
 	 		alert("hit");
-	 		changeGuessArray(guess,indexOfGuess);
+	 		//changeGuessArray(guess,indexesOfGuess);
 	 		updateBlankLines();
 	 	}
 	 	else{
