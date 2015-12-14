@@ -78,6 +78,8 @@
 	var imageArrayIndex = 0;
 	var word;
 
+	var win = false; 
+
 
 //	document.write("<img src=\"" + imageArray[index] + "\" alt=\"hangmanImage\"/>");
 
@@ -91,6 +93,7 @@
 		setAutoFocus()
 		clearDiv("misses");
 		clearDiv("statusMessage");
+		resetImage();
 		// alert(category);
 	}
 
@@ -204,29 +207,41 @@
  				alert("you win");
  				console.log(indexesOfGuess.length + " " + word.length);
  				youWin();
+ 				win = true;
  				getWinningImage();
  				clearDiv("wordlines");
  			}
 	 		//alert("hit");
-	 		alert(word.length);
+	 		//alert(word.length);
 	 		changeGuessArray(guess,indexesOfGuess);
+
+	 		if(win==false){
+	 			goodGuess();
+	 		}
+
 	 		updateBlankLines();
 	 	}
 	 	else{
 	 		guess += " ";
-	 		missesArray.push(guess);
-	 		//changeMissesArray(guess);
-	 		printMissesArray(guess);
-	 		if(missesArray.length == word.length -1){
- 				alert("you lose");
- 				console.log(indexesOfGuess.length + " " + word.length);
- 				youLose();
- 				getLosingImage();
+	 		if(missesArray.indexOf(guess) == -1){
+		 		missesArray.push(guess);
+		 		//changeMissesArray(guess);
+		 		printMissesArray(guess);
+		 		if(missesArray.length == word.length -1){
+	 				alert("you lose");
+	 				console.log(indexesOfGuess.length + " " + word.length);
+	 				youLose();
+	 				getLosingImage();
 
- 			}
-
-
-	 		changeImage();
+	 			}
+	 			else{
+		 			changeImage();
+		 			badGuess();
+		 		}
+		 	}
+		 	else{
+		 		duplicateEntry();
+		 	}
 	 	}
 	 } 
 
@@ -292,6 +307,10 @@
 	 	document.getElementById("pic").src=imageArray[6];
 	 }
 
+	 function resetImage(){
+	 	document.getElementById("pic").src=imageArray[0];
+	 }
+
 	 function duplicateEntry(){
 	 	var message = "You entered that letter already!"
 	 	var div = "";
@@ -318,6 +337,24 @@
 	 	div.innerHTML = message;
 	 }
 
+	 function goodGuess(){
+	 	var message = "Good Guess!";
+	 	var div = "";
+
+	 	div = document.getElementById("statusMessage");
+	 	div.innerHTML = message;
+	 }
+
+	  function badGuess(){
+	  	var message = "Incorrect Guess! Try again";
+	 	var div = "";
+
+	 	div = document.getElementById("statusMessage");
+	 	div.innerHTML = message;
+
+
+	 }
+
 	 function youWin(){
 	 	var message = "Congrats! You won! To play again, select another category!";
 	 	var div = "";
@@ -325,6 +362,8 @@
 	 	div = document.getElementById("statusMessage");
 	 	div.innerHTML = message;
 	 }
+
+	
 
 
  
