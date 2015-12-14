@@ -39,6 +39,7 @@
 
 
 <div id="wordlines">
+	<p>Select a category!</p>
 
 </div>
 
@@ -73,11 +74,12 @@
 	var guessArray = []; //This holds the blank spaces and the correct guesses
 	var indexesOfGuess = [];
 	var missesArray = [];
+	var correctGuesses = [];
 	var missCount = 0;
 
 	var imageArrayIndex = 0;
 	var word;
-
+	
 	var win = false; 
 
 
@@ -89,12 +91,18 @@
 	// document.write(word1.categoryIndex);
 	//Calls autofocus after each menu change
 	function getCategory(category){
-		loadFile(category);
-		setAutoFocus()
-		clearDiv("misses");
-		clearDiv("statusMessage");
-		resetImage();
+
+		if(category==="select"){
+			setDefaultMessage();
+		}
+		else{
+			loadFile(category);
+			setAutoFocus();
+			clearDiv("misses");
+			clearDiv("statusMessage");
+			resetImage();
 		// alert(category);
+		}
 	}
 
     /*This function loads the file of the category selected, line by line.
@@ -143,7 +151,7 @@
 	function getWord(){
 		var categorySize = wordArray.length;
 		word = wordArray[Math.floor((Math.random() * categorySize))];
-		//alert(word);
+		alert(word);
 	}
 
 	/*printBlankSpaces finds the length of the word selected and outputs that blank '_' black lines 
@@ -187,39 +195,49 @@
 
 	 function handleInput(){
 	 	var guess= document.getElementsByTagName("input")[0].value;
-	 	alert(guess + " " + word);
+	 		guess= guess.toLowerCase();
+	 	//alert(guess + " " + word);
 
 	 	//indexOfGuess checks if the guess is in the word
 	 	var indexOfGuess = word.search(guess);
 
+	 	var duplicateGuess = correctGuesses.indexOf(guess);
+	 	alert(duplicateGuess);
 	 	//If the guess is in the word, the for loop pushes all of its positions into the indexesOfGuess Array
 	 	if(indexOfGuess != -1){
-	 		for(var x =0; x < word.length; x++){
-		 		if(guess == word.charAt(x)){
-		 			indexesOfGuess.push(word.charAt(x));
-		 			changeGuessArray(guess, x);
-	 			}	
+	 		if(duplicateGuess != -1 && correctGuesses.length != 0){
+	 			duplicateEntry();
 	 		}
+	 		else{
+		 		correctGuesses.push(guess);
+		 		
+		 		for(var x =0; x < word.length; x++){
+			 		if(guess == word.charAt(x)){
+			 			indexesOfGuess.push(word.charAt(x));
+			 			changeGuessArray(guess, x);
+		 			}	
+		 		}
 
-	 		// alert(indexesOfGuess.length + " " + word.length);
+		 		// alert(indexesOfGuess.length + " " + word.length);
 
-	 		if(indexesOfGuess.length == word.length -1){
- 				alert("you win");
- 				console.log(indexesOfGuess.length + " " + word.length);
- 				youWin();
- 				win = true;
- 				getWinningImage();
- 				clearDiv("wordlines");
- 			}
-	 		//alert("hit");
-	 		//alert(word.length);
-	 		changeGuessArray(guess,indexesOfGuess);
+		 		if(indexesOfGuess.length == word.length -1){
+	 				//alert("you win");
+	 				console.log(indexesOfGuess.length + " " + word.length);
+	 				youWin();
+	 				win = true;
+	 				getWinningImage();
+	 				clearDiv("wordlines");
+	 			}
+		 		//alert("hit");
+		 		//alert(word.length);
+		 		changeGuessArray(guess,indexesOfGuess);
 
-	 		if(win==false){
-	 			goodGuess();
-	 		}
+		 		if(win==false){
+		 			goodGuess();
+		 		}
 
-	 		updateBlankLines();
+		 		updateBlankLines();
+		 	}
 	 	}
 	 	else{
 	 		guess += " ";
@@ -228,7 +246,7 @@
 		 		//changeMissesArray(guess);
 		 		printMissesArray(guess);
 		 		if(missesArray.length == word.length -1){
-	 				alert("you lose");
+	 				//alert("you lose");
 	 				console.log(indexesOfGuess.length + " " + word.length);
 	 				youLose();
 	 				getLosingImage();
@@ -240,9 +258,13 @@
 		 		}
 		 	}
 		 	else{
-		 		duplicateEntry();
+		 		badGuess();
 		 	}
 	 	}
+
+	 	//Resetting textbox
+	 	document.getElementById("userInput").value="";
+	 	document.getElementById("userInput").focus();
 	 } 
 
 	 /*This function creates a new string with the blanks and correct guess
@@ -260,7 +282,7 @@
 	 function printMissesArray(miss){
 	 	var misses ="";
 
-	 	alert(missesArray.length);
+	 	//alert(missesArray.length);
 
 	 	var div ="";
 		for(var x = 0; x <= missesArray.length -1; x++){
@@ -351,8 +373,14 @@
 
 	 	div = document.getElementById("statusMessage");
 	 	div.innerHTML = message;
+	 }
 
+	 function setDefaultMessage () {
+	 	var message = "<p>Select a category!</p>";
+	 	var div = "";
 
+	 	div = document.getElementById("wordlines");
+	 	div.innerHTML = message;
 	 }
 
 	 function youWin(){

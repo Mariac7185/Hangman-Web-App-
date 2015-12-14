@@ -1,30 +1,29 @@
-Hawks
-Celtics
-Bobcats
-Bulls
-Cavaliers
-Mavericks
-Nuggets
-Pistons
-Warriors
-Rockets
-Pacers
-Clippers
-Lakers
-Grizzlies
-Heat
-Bucks
-Timberwolves
-Nets
-Hornets
-Knicks
-Thunder
-Magic
-Sixers
-Suns
-Portland Trail Blazers
-Sacramento Kings
-San Antonio Spurs
-Toronto Raptors
-Utah Jazz
-Washington Wizards 
+hawks
+celtics
+bobcats
+bulls
+cavaliers
+mavericks
+nuggets
+pistons
+warriors
+rockets
+pacers
+clippers
+lakers
+grizzlies
+heat
+bucks
+timberwolves
+nets
+hornets
+knicks
+thunder
+magic
+sixers
+suns
+kings
+spurs
+raptors
+jazz
+wizards 
