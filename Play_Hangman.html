@@ -60,6 +60,7 @@
 	window.onload=function(){
 		 //document.getElementById("userInput").onchange=setAutoFocus();
 		// var category = e.options[e.selectedIndex].text;
+		//alert("hi");
 
 		// alert(category);
 	//setAutoFocus()
@@ -91,17 +92,20 @@
 	// document.write(word1.categoryIndex);
 	//Calls autofocus after each menu change
 	function getCategory(category){
-
+		//alert(category);
 		if(category==="select"){
 			setDefaultMessage();
+
 		}
 		else{
+
 			loadFile(category);
 			setAutoFocus();
 			clearDiv("misses");
 			clearDiv("statusMessage");
 			resetImage();
-		// alert(category);
+			resetInput();
+			
 		}
 	}
 
@@ -115,12 +119,15 @@
 			//alert(file);
 			var rawFile =  new XMLHttpRequest();
 			rawFile.open("GET", category.concat(".txt"),false);
+			//alert(rawFile.open("GET", category.concat(".txt"),false));
 			rawFile.onreadystatechange = function (){
-				if(rawFile.readyState === 4){							//document is ready to parse 																  
+				if(rawFile.readyState === 4){				
+				//alert('hi');			//document is ready to parse 																  
 					if(rawFile.status === 200 || rawFile.status ===0){    //file is found 
 						var allText = rawFile.responseText;
 						var lines  = rawFile.responseText.split("\n");    //Reading the file line by line. Adding a comma after each line
 						makeArray(lines);				
+
 					}
 				}
 			}
@@ -139,6 +146,7 @@
 	 */
 	function makeArray(fileData){
 		var str = String(fileData)	
+		//alert(str);
 		wordArray= str.split(",");
 		getWord();
 		printBlankSpaces();
@@ -389,6 +397,13 @@
 
 	 	div = document.getElementById("statusMessage");
 	 	div.innerHTML = message;
+	 }
+
+	 function resetInput(){
+	 	 guessArray = []; //This holds the blank spaces and the correct guesses
+		 indexesOfGuess = [];
+		 missesArray = [];
+		 correctGuesses = [];
 	 }
 
 	
