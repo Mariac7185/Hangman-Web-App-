@@ -14,6 +14,7 @@
 <img id="pic" src="./hangmanImages/Image1.gif" alt = "current game state"/>
 
 <br>
+<p>Select a category!</p>
 
 <select id="menu" onchange="getCategory(this.value);">
 	<option value="select">Select Category</option>
@@ -38,20 +39,23 @@
 </div>
 
 
+
 <div id="wordlines">
-	<p>Select a category!</p>
+	
 
 </div>
 
 <br><br>
+<div id="playingArea">
 
-<input id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input" ></input>
-<br><br>
+	<input id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input" ></input>
+	<br><br>
 
-<button onclick="handleInput();">Enter</button>
+	<button onclick="handleInput();">Enter</button>
 
-<div id="misses">
+	<div id="misses">
 
+	</div>
 </div>
 
 
@@ -82,6 +86,7 @@
 	var word;
 	
 	var win = false; 
+	var lose=false;
 
 
 //	document.write("<img src=\"" + imageArray[index] + "\" alt=\"hangmanImage\"/>");
@@ -210,7 +215,7 @@
 	 	var indexOfGuess = word.search(guess);
 
 	 	var duplicateGuess = correctGuesses.indexOf(guess);
-	 	alert(duplicateGuess);
+	 	//alert(duplicateGuess);
 	 	//If the guess is in the word, the for loop pushes all of its positions into the indexesOfGuess Array
 	 	if(indexOfGuess != -1){
 	 		if(duplicateGuess != -1 && correctGuesses.length != 0){
@@ -295,7 +300,7 @@
 	 	var div ="";
 		for(var x = 0; x <= missesArray.length -1; x++){
 			misses+= missesArray[x];	
-			alert(misses);		
+			//alert(misses);		
 		}
 		div = document.getElementById("misses");
 		div.innerHTML = misses;
@@ -335,6 +340,10 @@
 
 	 function getLosingImage(){
 	 	document.getElementById("pic").src=imageArray[6];
+	 	 div=document.getElementById('playingArea');
+	 	 div.style.display="none";
+	 	document.getElementById('wordlines').innerHTML='';
+
 	 }
 
 	 function resetImage(){
@@ -362,9 +371,11 @@
 	 function youLose(){
 	 	var message = "You lost! The word was " + word + "<br> To play again, select another category!";
 	 	var div = "";
+	 	lose=true; 
 
-	 	div = document.getElementById("statusMessage");
+	 	div = document.getElementById("statusMessage");	 	
 	 	div.innerHTML = message;
+	 	
 	 }
 
 	 function goodGuess(){
@@ -400,10 +411,14 @@
 	 }
 
 	 function resetInput(){
-	 	 guessArray = []; //This holds the blank spaces and the correct guesses
-		 indexesOfGuess = [];
-		 missesArray = [];
-		 correctGuesses = [];
+	 	// guessArray = []; //This holds the blank spaces and the correct guesses
+		indexesOfGuess = [];
+		missesArray = [];
+		correctGuesses = [];
+		missCount = 0;
+	   	imageArrayIndex = 0;
+	    index = 0;
+	    win = false; 
 	 }
 
 	
