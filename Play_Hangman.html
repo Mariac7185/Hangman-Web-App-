@@ -298,6 +298,7 @@
 		 				win = true;
 		 				getWinningImage();
 		 				clearDiv("wordlines");
+		 				clearDiv("input");
 		 			}
 			 		//alert("hit");
 			 		//alert(word.length);
@@ -318,7 +319,7 @@
 			 		//changeMissesArray(guess);
 			 		printMissesArray(guess);
 			 		if(missesArray.length == 6){
-		 				alert("you lose");
+		 				//alert("you lose");
 		 				console.log(indexesOfGuess.length + " " + word.length);
 
 		 				youLose();
