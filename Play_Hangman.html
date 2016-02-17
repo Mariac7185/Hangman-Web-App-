@@ -38,22 +38,37 @@
 <div id = "statusMessage">
 </div>
 
+<div id="selectCategory">
+
+ <h4>Please select a category first!</h4>
+
+</div>
+
+<div id="invalidInput">
+		<p>Invalid Input! Please enter a single letter (a-z)</p>
+</div>
 
 
 <div id="wordlines">
 	
-
+<p> _ _ _ _ _ _ </p>
 </div>
 
 <br><br>
 <div id="playingArea">
 
-	<input id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input" ></input>
-	<br><br>
+	<div id="input">
+		<input id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input" ></input>
+		<br><br>
 
-	<button onclick="handleInput();">Enter</button>
+		<button onclick="handleInput();">Enter</button>
+	</div>
 
+	
+
+	<h4>Misses:</h4>
 	<div id="misses">
+	
 
 	</div>
 </div>
@@ -62,7 +77,9 @@
 <script type="text/javascript">
 	
 	window.onload=function(){
-		 //document.getElementById("userInput").onchange=setAutoFocus();
+		 document.getElementById("selectCategory").style.display='none';
+		 document.getElementById("invalidInput").style.display='none';
+		 category="select";
 		// var category = e.options[e.selectedIndex].text;
 		//alert("hi");
 
@@ -84,7 +101,7 @@
 
 	var imageArrayIndex = 0;
 	var word;
-	
+	var category;
 	var win = false; 
 	var lose=false;
 
@@ -96,8 +113,13 @@
 	
 	// document.write(word1.categoryIndex);
 	//Calls autofocus after each menu change
-	function getCategory(category){
+	function getCategory(categorySelected){
 		//alert(category);
+		category=categorySelected;
+
+
+		// if(category===null)	
+			//alert("null");
 		if(category==="select"){
 			setDefaultMessage();
 
@@ -110,6 +132,8 @@
 			clearDiv("statusMessage");
 			resetImage();
 			resetInput();
+			hideDiv('selectCategory');
+			hideDiv('invalidInput');
 			
 		}
 	}
@@ -192,8 +216,18 @@
 	/*ClearLines removes the blank lines which were printed 'printBlankSpaces'
 	*/
 	function clearDiv(id){
+		// document.getElementById(id).style.display='none';
 		div = document.getElementById(id);
-		div.innerHTML = "";	
+		div.innerHTML ='';	
+	}
+
+	function showDiv(id){
+		document.getElementById(id).style.display='block';
+	}
+
+	function hideDiv(id){
+		 document.getElementById(id).style.display='none';
+
 	}
 
 	// function clearMisses(){
@@ -207,77 +241,107 @@
 	 */
 
 	 function handleInput(){
+	 
 	 	var guess= document.getElementsByTagName("input")[0].value;
-	 		guess= guess.toLowerCase();
-	 	//alert(guess + " " + word);
+	 	//alert(guess.charCodeAt(0));
+	 	//	alert(typeof(category));
 
-	 	//indexOfGuess checks if the guess is in the word
-	 	var indexOfGuess = word.search(guess);
-
-	 	var duplicateGuess = correctGuesses.indexOf(guess);
-	 	//alert(duplicateGuess);
-	 	//If the guess is in the word, the for loop pushes all of its positions into the indexesOfGuess Array
-	 	if(indexOfGuess != -1){
-	 		if(duplicateGuess != -1 && correctGuesses.length != 0){
-	 			duplicateEntry();
-	 		}
-	 		else{
-		 		correctGuesses.push(guess);
-		 		
-		 		for(var x =0; x < word.length; x++){
-			 		if(guess == word.charAt(x)){
-			 			indexesOfGuess.push(word.charAt(x));
-			 			changeGuessArray(guess, x);
-		 			}	
-		 		}
-
-		 		// alert(indexesOfGuess.length + " " + word.length);
-
-		 		if(indexesOfGuess.length == word.length -1){
-	 				//alert("you win");
-	 				console.log(indexesOfGuess.length + " " + word.length);
-	 				youWin();
-	 				win = true;
-	 				getWinningImage();
-	 				clearDiv("wordlines");
-	 			}
-		 		//alert("hit");
-		 		//alert(word.length);
-		 		changeGuessArray(guess,indexesOfGuess);
-
-		 		if(win==false){
-		 			goodGuess();
-		 		}
-
-		 		updateBlankLines();
-		 	}
+	 	if(guess.length==0){
+	 		showDiv("invalidInput");
+	 	}
+	    if(guess.charCodeAt(0)<65 || guess.charCodeAt(0) >122) {
+	 		showDiv("invalidInput");
+	 		setAutoFocus();
+	 	}
+	   if(guess.length == 0 && category==="select"){
+	 		 showDiv('selectCategory');
+	 		 // alert('blank input');
+	 	}
+	    if(category==="select"){
+	 		//alert('choose something else');
+	 		showDiv('selectCategory');
 	 	}
 	 	else{
-	 		guess += " ";
-	 		if(missesArray.indexOf(guess) == -1){
-		 		missesArray.push(guess);
-		 		//changeMissesArray(guess);
-		 		printMissesArray(guess);
-		 		if(missesArray.length == word.length -1){
-	 				//alert("you lose");
-	 				console.log(indexesOfGuess.length + " " + word.length);
-	 				youLose();
-	 				getLosingImage();
+	 		//hideDiv('selectCategory');
+	 		hideDiv("invalidInput");
 
-	 			}
-	 			else{
-		 			changeImage();
-		 			badGuess();
+		 	guess= guess.toLowerCase();
+		 	//alert(guess);
+		 	//alert(guess + " " + word);
+
+		 	//indexOfGuess checks if the guess is in the word
+		 	var indexOfGuess = word.search(guess);
+
+		 	var duplicateGuess = correctGuesses.indexOf(guess);
+		 	//alert(duplicateGuess);
+		 	//If the guess is in the word, the for loop pushes all of its positions into the indexesOfGuess Array
+		 	if(indexOfGuess != -1){
+		 		if(duplicateGuess != -1 && correctGuesses.length != 0){
+		 			duplicateEntry();
 		 		}
+		 		else{
+			 		correctGuesses.push(guess);
+			 		
+			 		for(var x =0; x < word.length; x++){
+				 		if(guess == word.charAt(x)){
+				 			indexesOfGuess.push(word.charAt(x));
+				 			changeGuessArray(guess, x);
+			 			}	
+			 		}
+
+			 		// alert(indexesOfGuess.length + " " + word.length);
+
+			 		if(indexesOfGuess.length == word.length -1){
+		 				//alert("you win");
+		 				console.log(indexesOfGuess.length + " " + word.length);
+		 				youWin();
+		 				win = true;
+		 				getWinningImage();
+		 				clearDiv("wordlines");
+		 			}
+			 		//alert("hit");
+			 		//alert(word.length);
+			 		changeGuessArray(guess,indexesOfGuess);
+
+			 		if(win==false){
+			 			goodGuess();
+			 		}
+
+			 		updateBlankLines();
+			 	}
 		 	}
 		 	else{
-		 		badGuess();
-		 	}
-	 	}
+		 		guess += " ";
+		 		if(missesArray.indexOf(guess) == -1){
+			 		missesArray.push(guess);
+			 		alert(missesArray.length);
+			 		//changeMissesArray(guess);
+			 		printMissesArray(guess);
+			 		if(missesArray.length == 6){
+		 				alert("you lose");
+		 				console.log(indexesOfGuess.length + " " + word.length);
 
-	 	//Resetting textbox
-	 	document.getElementById("userInput").value="";
-	 	document.getElementById("userInput").focus();
+		 				youLose();
+		 				clearDiv("wordlines");
+		 				clearDiv("input");
+		 				getLosingImage();
+
+		 			}
+		 			else{
+			 			changeImage();
+			 			badGuess();
+			 		}
+			 	}
+			 	else{
+			 		badGuess();
+			 	}
+		 	}
+
+		 	//Resetting textbox
+		 	document.getElementById("userInput").value="";
+		 	document.getElementById("userInput").focus();
+		 }
+		 
 	 } 
 
 	 /*This function creates a new string with the blanks and correct guess
@@ -340,9 +404,9 @@
 
 	 function getLosingImage(){
 	 	document.getElementById("pic").src=imageArray[6];
-	 	 div=document.getElementById('playingArea');
-	 	 div.style.display="none";
-	 	document.getElementById('wordlines').innerHTML='';
+	 	//  div=document.getElementById('playingArea');
+	 	//  div.style.display="none";
+	 	// document.getElementById('wordlines').innerHTML='';
 
 	 }
 
