@@ -116,6 +116,7 @@
 	function getCategory(categorySelected){
 		//alert(category);
 		category=categorySelected;
+		//setAutoFocus();
 
 
 		// if(category===null)	
@@ -134,6 +135,7 @@
 			resetInput();
 			hideDiv('selectCategory');
 			hideDiv('invalidInput');
+			showDiv('input');
 			
 		}
 	}
@@ -223,6 +225,7 @@
 
 	function showDiv(id){
 		document.getElementById(id).style.display='block';
+		setAutoFocus();
 	}
 
 	function hideDiv(id){
@@ -298,7 +301,7 @@
 		 				win = true;
 		 				getWinningImage();
 		 				clearDiv("wordlines");
-		 				clearDiv("input");
+		 				hideDiv("input");
 		 			}
 			 		//alert("hit");
 			 		//alert(word.length);
@@ -324,7 +327,7 @@
 
 		 				youLose();
 		 				clearDiv("wordlines");
-		 				clearDiv("input");
+		 				hideDiv("input");
 		 				getLosingImage();
 
 		 			}
@@ -484,6 +487,7 @@
 	   	imageArrayIndex = 0;
 	    index = 0;
 	    win = false; 
+	    setAutoFocus();
 	 }
 
 	
