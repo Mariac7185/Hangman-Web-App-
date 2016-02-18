@@ -3,3 +3,9 @@
 #userInput{
 	width:10px;
 }
+
+.box{
+	border: 1px solid grey;
+	border-radius: 10px;
+	text-align: center;
+}
