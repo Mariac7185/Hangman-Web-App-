@@ -4,8 +4,15 @@
 	width:10px;
 }
 
+#playingArea{
+	padding-top:30px;
+}
+
+
+
 .box{
 	border: 1px solid grey;
 	border-radius: 10px;
 	text-align: center;
+	margin-top: 50px;
 }

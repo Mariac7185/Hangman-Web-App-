@@ -18,36 +18,96 @@
 
 <body>
 
-<div class="container">
+<div class="container box">
 	<div class = "row">
-		<div class="col-md-6 col-md-offset-3 box">
+		<div class="col-md-3">
 			<img id="pic" src="./hangmanImages/Image1.gif" alt = "current game state"/>
 
 			<br>
+		</div>
 
-			<div class="col-md-6 col-md-offset-3">
-				<label>Select a category!</label>
+		<div id="playingArea" class="col-md-6">
+			<label>Select a category!</label>
 
-				<select class="form-control"  id="menu"  onchange="getCategory(this.value);">
-					<option value="select">Select Category</option>
-					<option value="states">U.S. State</option>
-					<option value="countries">Country</option>
-					<option value="animal">Animal</option>
-					<option value="occupation">Occupation/Job</option>
-					<option value="appliance">Household Appliance</option>
-					<option value="furniture">Furniture</option>
-					<option value="fruit">Fruit</option>
-					<option value="transport">Transportation</option>
-					<option value="music">Musical Instrument</option>
-					<option value="mlbTeams">MLB Teams</option>
-					<option value="nbaTeams">NBA Teams</option>
-					<option value="nhlTeams">NHL Teams</option>
-					<option value="nflTeams">NFL Teams</option>
-				</select>
+			<select class="form-control"  id="menu"  onchange="getCategory(this.value);">
+				<option value="select">Select Category</option>
+				<option value="states">U.S. State</option>
+				<option value="countries">Country</option>
+				<option value="animal">Animal</option>
+				<option value="occupation">Occupation/Job</option>
+				<option value="appliance">Household Appliance</option>
+				<option value="furniture">Furniture</option>
+				<option value="fruit">Fruit</option>
+				<option value="transport">Transportation</option>
+				<option value="music">Musical Instrument</option>
+				<option value="mlbTeams">MLB Teams</option>
+				<option value="nbaTeams">NBA Teams</option>
+				<option value="nhlTeams">NHL Teams</option>
+				<option value="nflTeams">NFL Teams</option>
+			</select>
 
+			
+
+			<div id = "statusMessage">
+			</div>
+			
+			
+
+			<div id="selectCategory">
+			 	<h4>Please select a category first!</h4>
 			</div>
 
-			<br><br>
+			<br>
+
+			<div id = "statusMessage">
+			</div>
+
+					
+
+			<div id="invalidInput">
+				<p>Invalid Input! Please enter a single letter (a-z)</p>
+			</div>
+
+
+			<div id="wordlines">				
+				<pre> _    _    _    _    _    _ </pre>
+			</div>
+
+			<div id="" class="col-md-6 col-md-offset-3">
+
+				<div id="input">
+					<div class="col-md-5 col-md-offset-4" >
+						<input class="form-control" id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input" ></input>
+					</div>
+					<br><br>
+
+					
+					
+				</div>
+
+				
+
+				
+			
+			</div>
+			<button class="form-control" onclick="handleInput();">Enter</button>
+			<h4>Misses:</h4>
+				<div id="misses">			
+
+				</div>
+		</div>
+
+		
+	</div>
+</div>
+
+
+		<!-- <div class="col-md-4">
+	 	</div> -
+	</div>
+</div>
+
+			<!-- <br><br>
 
 			<div id = "statusMessage">
 			</div>
@@ -93,7 +153,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 
 <script type="text/javascript">
