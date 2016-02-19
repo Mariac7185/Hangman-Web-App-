@@ -1,6 +1,8 @@
 window.onload=function(){
 		 document.getElementById("selectCategory").style.display='none';
 		 document.getElementById("invalidInput").style.display='none';
+		 document.getElementById("statusMessage1").style.display='none';
+		 document.getElementById("statusMessage2").style.display='none';
 		 category="select";
 		// var category = e.options[e.selectedIndex].text;
 		//alert("hi");
@@ -52,7 +54,8 @@ window.onload=function(){
 			loadFile(category);
 			setAutoFocus();
 			clearDiv("misses");
-			clearDiv("statusMessage");
+			clearDiv("statusMessage1");
+			clearDiv("statusMessage2");
 			resetImage();
 			resetInput();
 			hideDiv('selectCategory');
@@ -88,7 +91,8 @@ window.onload=function(){
 		}
 		else{
 			clearDiv("wordlines");
-			clearDiv("statusMessage");
+			clearDiv("statusMessage1");
+			clearDiv("statusMessage2");
 		}
 
 	}
@@ -168,6 +172,11 @@ window.onload=function(){
 	 function handleInput(){
 	 
 	 	var guess= document.getElementsByTagName("input")[0].value;
+
+	 // 	clearDiv("statusMessage1");
+		// clearDiv("statusMessage2");
+		hideDiv("statusMessage1");
+		hideDiv("statusMessage2");
 	 	//alert(guess.charCodeAt(0));
 	 	//	alert(typeof(category));
 
@@ -344,8 +353,9 @@ window.onload=function(){
 	 	var message = "You entered that letter already!"
 	 	var div = "";
 
-	 	div = document.getElementById("statusMessage");
+	 	div = document.getElementById("statusMessage1");
 	 	div.innerHTML = message;
+	 	showDiv("statusMessage1");
 
 	 }
 
@@ -353,18 +363,20 @@ window.onload=function(){
 	 	var message = "Invaid Entry! Only LETTERS are allowed";
 	 	var div = "";
 
-	 	div = document.getElementById("statusMessage");
+	 	div = document.getElementById("statusMessage1");
 	 	div.innerHTML = message;
+	 	showDiv("statusMessage1");
 	 }
 
 
 	 function youLose(){
-	 	var message = "You lost! The word was " + word + "<br> To play again, select another category!";
+	 	var message = "<strong>You lost!</strong> The word was <strong>" + word + "</strong><br> To play again, select another category!";
 	 	var div = "";
 	 	lose=true; 
 
-	 	div = document.getElementById("statusMessage");	 	
+	 	div = document.getElementById("statusMessage1");	 	
 	 	div.innerHTML = message;
+	 	showDiv("statusMessage1");
 	 	
 	 }
 
@@ -372,16 +384,18 @@ window.onload=function(){
 	 	var message = "Good Guess!";
 	 	var div = "";
 
-	 	div = document.getElementById("statusMessage");
+	 	div = document.getElementById("statusMessage2");
 	 	div.innerHTML = message;
+	 	showDiv("statusMessage2");
 	 }
 
 	  function badGuess(){
 	  	var message = "Incorrect Guess! Try again";
 	 	var div = "";
 
-	 	div = document.getElementById("statusMessage");
+	 	div = document.getElementById("statusMessage1");
 	 	div.innerHTML = message;
+	 	showDiv("statusMessage1");
 	 }
 
 	 function setDefaultMessage () {
@@ -393,11 +407,15 @@ window.onload=function(){
 	 }
 
 	 function youWin(){
-	 	var message = "Congrats! You won! To play again, select another category!";
+	 	var message = "<strong>Congrats! You won!</strong> To play again, select another category!";
 	 	var div = "";
 
-	 	div = document.getElementById("statusMessage");
+	 	div = document.getElementById("statusMessage2");
 	 	div.innerHTML = message;
+
+	 	showDiv("statusMessage2");
+
+
 	 }
 
 	 function resetInput(){

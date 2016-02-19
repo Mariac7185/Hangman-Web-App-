@@ -53,19 +53,28 @@
 			
 			
 
-			<div id="selectCategory">
-			 	<h4>Please select a category first!</h4>
+			<div class="alert alert-danger" id="selectCategory">
+
+				  <strong>Warning!</strong> Please select a category first!.
+			 	
 			</div>
 
 			<br>
 
-			<div id = "statusMessage">
+		<!-- 	<div id = "statusMessage">
+			</div> -->
+
+			<div class="alert alert-danger" id="statusMessage1">
+				<strong>Bad Guess!</strong> Please try again (a-z)
 			</div>
 
+			<div class="alert alert-success" id="statusMessage2">
+				<strong>Good Guess Guess!</strong> 
+			</div>
 					
 
-			<div id="invalidInput">
-				<p>Invalid Input! Please enter a single letter (a-z)</p>
+			<div class="alert alert-danger" id="invalidInput">
+				<strong>Invalid Input!</strong> Please enter a single letter (a-z)
 			</div>
 
 
@@ -75,21 +84,17 @@
 
 			<div id="" class="col-md-6 col-md-offset-3">
 
-				<div id="input">
+				<div id="input" >
 					<div class="col-md-5 col-md-offset-4" >
-						<input class="form-control" id="userInput" type="text" maxlength="1" value ="" autofocus="autofocus" name="input" ></input>
+						<input class="form-control" id="userInput" type="text" maxlength="1"  value ="" autofocus="autofocus" name="input" ></input>
 					</div>
 					<br><br>
 
 					
 					
-				</div>
-
-				
-
-				
-			
+				</div>				
 			</div>
+
 			<button class="form-control" onclick="handleInput();">Enter</button>
 			<h4>Misses:</h4>
 				<div id="misses">			
