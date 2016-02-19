@@ -1,6 +1,6 @@
 window.onload=function(){
 		 document.getElementById("selectCategory").style.display='none';
-		 document.getElementById("invalidInput").style.display='none';
+		 //document.getElementById("invalidInput").style.display='none';
 		 document.getElementById("statusMessage1").style.display='none';
 		 document.getElementById("statusMessage2").style.display='none';
 		 category="select";
@@ -59,7 +59,9 @@ window.onload=function(){
 			resetImage();
 			resetInput();
 			hideDiv('selectCategory');
-			hideDiv('invalidInput');
+			hideDiv("statusMessage1");
+			hideDiv("statusMessage2");
+		//	hideDiv('invalidInput');
 			showDiv('input');
 			
 		}
@@ -180,24 +182,29 @@ window.onload=function(){
 	 	//alert(guess.charCodeAt(0));
 	 	//	alert(typeof(category));
 
-	 	if(guess.length==0){
-	 		showDiv("invalidInput");
+	 	if( guess.length == 0 && category==="select"){
+	 		//showDiv("invalidInput");
+	 		invalidInput();
+
 	 	}
-	    if(guess.charCodeAt(0)<65 || guess.charCodeAt(0) >122) {
-	 		showDiv("invalidInput");
+	    else if(guess.charCodeAt(0)<65 || guess.charCodeAt(0) >122) {
+	 		//showDiv("invalidInput");
+	 		invalidInput();
 	 		setAutoFocus();
 	 	}
-	   if(guess.length == 0 && category==="select"){
-	 		 showDiv('selectCategory');
+	   else if(guess.length==0){
+	 		// showDiv('selectCategory');
 	 		 // alert('blank input');
+	 		 invalidInput();
 	 	}
-	    if(category==="select"){
+	    else if(category==="select"){
 	 		//alert('choose something else');
-	 		showDiv('selectCategory');
+	 		//showDiv('selectCategory');
+	 		invalidInput();
 	 	}
 	 	else{
 	 		//hideDiv('selectCategory');
-	 		hideDiv("invalidInput");
+	 		hideDiv("statusMessage1");
 
 		 	guess= guess.toLowerCase();
 		 	//alert(guess);
@@ -359,12 +366,17 @@ window.onload=function(){
 
 	 }
 
-	 function invalidEntry(){
-	 	var message = "Invaid Entry! Only LETTERS are allowed";
+	 function invalidInput(){
+	 	var message = "Invalid Entry! Only LETTERS (a-z) are allowed";
 	 	var div = "";
+	 		// alert("Invalid Input");
+	 	if(category==="select"){
+	 		message="Please select a category first!";
+	 	}
 
 	 	div = document.getElementById("statusMessage1");
 	 	div.innerHTML = message;
+	 	alert(div.innerHTML);
 	 	showDiv("statusMessage1");
 	 }
 
