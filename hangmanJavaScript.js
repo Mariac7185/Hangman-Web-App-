@@ -129,10 +129,16 @@ window.onload=function(){
 		var wordLength = word.length;
 		var blankLines="";
 		var div ="";
+		
+		blankLines+="<pre>";
+
 		for(var x = 0; x < wordLength -1; x++){
 			blankLines += "   _   ";
 			guessArray.push("   _   ");
 		}
+
+		blankLines+="</pre>";
+
 		div = document.getElementById("wordlines");
 		div.innerHTML = blankLines;
 	}
@@ -317,6 +323,8 @@ window.onload=function(){
 	 */
 	 function updateBlankLines(){
 	 	var newString="";
+
+	 	newString+="<pre>";
 	 	//alert(guessArray);
 
 	 	for(var x =0; x < guessArray.length; x++){
@@ -326,6 +334,7 @@ window.onload=function(){
 	 	}	
 
 	 	//alert(newString);
+	 	newString+="</pre>";
 
 	 	div = document.getElementById("wordlines");
 		div.innerHTML = newString;
