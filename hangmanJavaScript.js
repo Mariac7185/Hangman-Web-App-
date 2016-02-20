@@ -307,6 +307,8 @@ window.onload=function(){
 	 function printMissesArray(miss){
 	 	var misses ="";
 
+	 	misses += "<pre>";
+
 	 	//alert(missesArray.length);
 
 	 	var div ="";
@@ -314,6 +316,8 @@ window.onload=function(){
 			misses+= missesArray[x];	
 			//alert(misses);		
 		}
+
+		misses+="</pre>";
 		div = document.getElementById("misses");
 		div.innerHTML = misses;
 
