@@ -133,8 +133,8 @@ window.onload=function(){
 		blankLines+="<pre>";
 
 		for(var x = 0; x < wordLength -1; x++){
-			blankLines += "   _   ";
-			guessArray.push("   _   ");
+			blankLines += " _ ";
+			guessArray.push(" _ ");
 		}
 
 		blankLines+="</pre>";
@@ -347,7 +347,9 @@ window.onload=function(){
 	 	newString+="</pre>";
 
 	 	div = document.getElementById("wordlines");
+
 		div.innerHTML = newString;
+		div.style.fontSize="20px";
 	 }
 
 	 /*This function changes the picture for every wrong guess
