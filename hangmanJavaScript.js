@@ -155,6 +155,12 @@ window.onload=function(){
 		// document.getElementById(id).style.display='none';
 		div = document.getElementById(id);
 		div.innerHTML ='';	
+	//	alert(id);
+		if(id==='misses'){
+			document.getElementById("misses").innerHTML='<pre>_    _    _    _    _    _ </pre>';
+			// alert(d);
+			// d.write='_    _    _    _    _    _ ';
+		}
 	}
 
 	function showDiv(id){
@@ -453,4 +459,9 @@ window.onload=function(){
 	    index = 0;
 	    win = false; 
 	    setAutoFocus();
+	 }
+
+	 function setBlankLinesMisses(){
+
+
 	 }
