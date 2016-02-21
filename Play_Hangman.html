@@ -21,13 +21,13 @@
 
 <div class="container box">
 	<div class = "row">
-		<div class="col-md-3">
+		<div class="col-md-3" id="pics">
 			<img id="pic" src="./hangmanImages/Image1.gif" alt = "current game state"/>
 
 			<br>
 		</div>
 
-		<div id="playingArea" class="col-md-6">
+		<div id="playingArea" class="col-md-4">
 			<label>Select a category!</label>
 
 			<select class="form-control"  id="menu"  onchange="getCategory(this.value);">
@@ -96,7 +96,9 @@
 				</div>				
 			</div>
 
-			<button class="form-control" onclick="handleInput();">Enter</button>
+		
+				<button class="form-control" onclick="handleInput();">Enter</button>
+			
 			<h4>Misses:</h4>
 				<div id="misses">			
 					<pre id="missesBlankLines"> _    _    _    _    _    _ </pre>

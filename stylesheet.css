@@ -1,11 +1,22 @@
 
 pre{
-	font-size: 15px;
+	font-size: 19px;
 
+}
+
+button:hover{
+	/*background: green;
+	color: white;
+	text-decoration: bold;*/
+	box-shadow: inset 0 0 0 1px #00e6ac;
 }
 
 #userInput{
 	width:35px;
+}
+
+#pics{
+	padding-top: 25px;
 }
 
 #playingArea{
@@ -20,3 +31,4 @@ pre{
 	text-align: center;
 	margin-top: 50px;
 }
+

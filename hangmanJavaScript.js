@@ -250,7 +250,7 @@ window.onload=function(){
 		 				youWin();
 		 				win = true;
 		 				getWinningImage();
-		 				clearDiv("wordlines");
+		 				//clearDiv("wordlines");
 		 				hideDiv("input");
 		 			}
 			 		//alert("hit");
@@ -276,7 +276,7 @@ window.onload=function(){
 		 				console.log(indexesOfGuess.length + " " + word.length);
 
 		 				youLose();
-		 				clearDiv("wordlines");
+		 				//clearDiv("wordlines");
 		 				hideDiv("input");
 		 				getLosingImage();
 
@@ -301,7 +301,7 @@ window.onload=function(){
 	 /*This function creates a new string with the blanks and correct guess
 	 */
 	 function changeGuessArray(guess, index){
-	 	guessArray[index] = "   " + guess + "   ";
+	 	guessArray[index] = " " + guess + " ";
 	 }
 
 	 function changeMissesArray(guess){
