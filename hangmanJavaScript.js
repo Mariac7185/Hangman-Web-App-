@@ -63,7 +63,7 @@ window.onload=function(){
 			hideDiv("statusMessage2");
 		//	hideDiv('invalidInput');
 			showDiv('input');
-			
+			showDiv('button');
 		}
 	}
 
@@ -252,6 +252,7 @@ window.onload=function(){
 		 				getWinningImage();
 		 				//clearDiv("wordlines");
 		 				hideDiv("input");
+		 				hideDiv("button");
 		 			}
 			 		//alert("hit");
 			 		//alert(word.length);
@@ -278,6 +279,7 @@ window.onload=function(){
 		 				youLose();
 		 				//clearDiv("wordlines");
 		 				hideDiv("input");
+		 				hideDiv("button");
 		 				getLosingImage();
 
 		 			}
