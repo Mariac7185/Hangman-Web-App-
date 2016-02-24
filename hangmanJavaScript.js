@@ -118,7 +118,7 @@ window.onload=function(){
 	function getWord(){
 		var categorySize = wordArray.length;
 		word = wordArray[Math.floor((Math.random() * categorySize))];
-		alert(word);
+		//alert(word);
 	}
 
 	/*printBlankSpaces finds the length of the word selected and outputs that blank '_' black lines 
@@ -269,7 +269,7 @@ window.onload=function(){
 		 		guess += " ";
 		 		if(missesArray.indexOf(guess) == -1){
 			 		missesArray.push(guess);
-			 		alert(missesArray.length);
+			 		//alert(missesArray.length);
 			 		//changeMissesArray(guess);
 			 		printMissesArray(guess);
 			 		if(missesArray.length == 6){
